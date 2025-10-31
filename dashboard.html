@@ -73,7 +73,7 @@
 </head>
 <body>
   <div class="dashboard">
-    <h1>📺 Watch History Analytics</h1>
+    <h1>Watch History Analytics</h1>
 
     <div class="summary">
       <div class="card" id="totalHours">Total Hours: --</div>
@@ -112,7 +112,7 @@
       }
     };
 
-    // Summary stats
+    
     const totalHours = Object.values(watchData.shows).reduce((a, b) => a + b, 0);
     const mostWatched = Object.entries(watchData.shows).reduce((a, b) => b[1] > a[1] ? b : a)[0];
     const daysTracked = Object.keys(watchData.daily).length;
@@ -121,7 +121,7 @@
     document.getElementById('mostWatched').textContent = `Most Watched: ${mostWatched}`;
     document.getElementById('daysTracked').textContent = `Days Tracked: ${daysTracked}`;
 
-    // Show list
+  
     const showList = document.getElementById('showList');
     for (const [show, hours] of Object.entries(watchData.shows)) {
       const li = document.createElement('li');
@@ -129,7 +129,7 @@
       showList.appendChild(li);
     }
 
-    // Daily list
+
     const dailyList = document.getElementById('dailyList');
     for (const [date, hours] of Object.entries(watchData.daily)) {
       const li = document.createElement('li');
