@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watch Analytics Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      color: #333;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      flex: 1 1 250px;
+      text-align: center;
+    }
+
+    .section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .value {
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h1>📺 Watch History Analytics</h1>
+
+    <div class="summary">
+      <div class="card" id="totalHours">Total Hours: --</div>
+      <div class="card" id="mostWatched">Most Watched: --</div>
+      <div class="card" id="daysTracked">Days Tracked: --</div>
+    </div>
+
+    <div class="section">
+      <h2>Time Spent per Show</h2>
+      <ul id="showList"></ul>
+    </div>
+
+    <div class="section">
+      <h2>Daily Watch Breakdown</h2>
+      <ul id="dailyList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const watchData = {
+      shows: {
+        "The Explorer": 12,
+        "Mystery Lane": 8,
+        "Comedy Nights": 15,
+        "Sci-Fi Saga": 5,
+        "Drama Hour": 10
+      },
+      daily: {
+        "2025-10-25": 2,
+        "2025-10-26": 3,
+        "2025-10-27": 1,
+        "2025-10-28": 4,
+        "2025-10-29": 2,
+        "2025-10-30": 5,
+        "2025-10-31": 3
+      }
+    };
+
+    // Summary stats
+    const totalHours = Object.values(watchData.shows).reduce((a, b) => a + b, 0);
+    const mostWatched = Object.entries(watchData.shows).reduce((a, b) => b[1] > a[1] ? b : a)[0];
+    const daysTracked = Object.keys(watchData.daily).length;
+
+    document.getElementById('totalHours').textContent = `Total Hours: ${totalHours}`;
+    document.getElementById('mostWatched').textContent = `Most Watched: ${mostWatched}`;
+    document.getElementById('daysTracked').textContent = `Days Tracked: ${daysTracked}`;
+
+    // Show list
+    const showList = document.getElementById('showList');
+    for (const [show, hours] of Object.entries(watchData.shows)) {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="label">${show}</span><span class="value">${hours} hrs</span>`;
+      showList.appendChild(li);
+    }
+
+    // Daily list
+    const dailyList = document.getElementById('dailyList');
+    for (const [date, hours] of Object.entries(watchData.daily)) {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="label">${date}</span><span class="value">${hours} hrs</span>`;
+      dailyList.appendChild(li);
+    }
+  </script>
+</body>
+</html>
